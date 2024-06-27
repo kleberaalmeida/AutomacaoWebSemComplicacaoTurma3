@@ -1,5 +1,6 @@
 package br.com.chronosAcademy.automacaoWeb;
 
+import br.com.chronosAcademy.core.Driver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
@@ -14,13 +15,13 @@ import static org.junit.Assert.assertEquals;
 
 public class testeWeb {
 
-    WebDriver driver;
+    EdgeDriver driver;
+    Driver driverWeb;
 
     @Before
     public void inicializaTeste(){
-        WebDriverManager.edgedriver().setup();
-        driver = new EdgeDriver();
-        driver.manage().window().maximize();
+        driverWeb = new Driver("edge");
+        driver = (EdgeDriver) driverWeb.getDriver();
         driver.get("https://www.chronosacademy.com.br");
     }
 
