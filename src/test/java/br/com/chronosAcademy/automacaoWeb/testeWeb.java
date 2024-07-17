@@ -1,52 +1,46 @@
 package br.com.chronosAcademy.automacaoWeb;
 
 import br.com.chronosAcademy.core.Driver;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import br.com.chronosAcademy.page.CursoPage;
+import br.com.chronosAcademy.page.PrincipalPage;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-
 import static org.junit.Assert.assertEquals;
 
 public class testeWeb {
 
     EdgeDriver driver;
     Driver driverWeb;
+    PrincipalPage principalPage;
+    CursoPage cursoPage;
 
     @Before
     public void inicializaTeste(){
         driverWeb = new Driver("edge");
         driver = (EdgeDriver) driverWeb.getDriver();
         driver.get("https://www.chronosacademy.com.br");
+        principalPage = new PrincipalPage(driver);
     }
 
     @Test
     public void primeiroTeste() {
-        String xpathTitulo = "/html/body/div/div/div/section[2]/div[3]/div/div/div[1]/div/h4";
-        WebElement txtTitulo = driver.findElement(By.xpath(xpathTitulo));
-        String titulo = txtTitulo.getText();
+        String titulo = principalPage.getTitulo();
+
         assertEquals("Porque Tempo É Conhecimento.", titulo);
     }
 
     @Test
-    public void segundoTeste() {
-        String xpathTitulo = "/html/body/div/div/div/section[2]/div[3]/div/div/div[2]/div/div/a/span/span[2]";
-        driver.findElement(By.xpath(xpathTitulo)).click();
-        String xpathSegundoTitulo = "//*[@id=\"block-214\"]/div/div/div/div[1]/div/div";
-        WebElement txtSegundoTitulo = driver.findElement(By.xpath(xpathSegundoTitulo));
-        String titulo = txtSegundoTitulo.getText();
+    public void segundoTeste() throws InterruptedException {
+        cursoPage = new CursoPage(driver);
+        principalPage.clickBotao();
+        String titulo = cursoPage.getTitulo2();
+
         assertEquals("Conheça todos os nossos cursos.", titulo);
     }
-
     @After
     public void finalizaTeste(){
         driver.quit();
     }
 }
-
-
