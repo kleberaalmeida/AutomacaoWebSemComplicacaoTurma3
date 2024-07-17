@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.openqa.selenium.edge.EdgeDriver;
 import static org.junit.Assert.assertEquals;
 
-public class testeWeb {
+public class TesteWeb {
 
     EdgeDriver driver;
     Driver driverWeb;
