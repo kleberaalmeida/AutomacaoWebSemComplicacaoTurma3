@@ -1,21 +1,22 @@
 package br.com.chronosAcademy.page;
 
-import org.openqa.selenium.By;
+import br.com.chronosAcademy.maps.CursoMap;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
 public class CursoPage {
 
     WebDriver driver;
+    CursoMap cursoMap;
 
     public CursoPage(WebDriver driver) {
         this.driver = driver;
+        cursoMap = new CursoMap();
+        PageFactory.initElements(driver, cursoMap);
     }
 
     public String getTitulo2() throws InterruptedException {
-        String cssTitulo = "div.text-center > div.large-h1";
         Thread. sleep(1000);
-        WebElement txtTitulo = driver.findElement(By.cssSelector(cssTitulo));
-        return txtTitulo.getText();
+        return cursoMap.h2Titulo.getText();
     }
 }
